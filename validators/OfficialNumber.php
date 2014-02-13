@@ -81,7 +81,7 @@ class OfficialNumber extends \CValidator {
 				}
 			}
 		} else {
-			throw new \CException(Yii::t('sweelix','type {type} is incorrect.', array('{type}'=>$this->type)));
+			throw new \CException(\Yii::t('sweelix','type {type} is incorrect.', array('{type}'=>$this->type)));
 		}
 
 

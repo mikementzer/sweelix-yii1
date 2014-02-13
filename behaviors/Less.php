@@ -66,7 +66,7 @@ namespace sweelix\yii1\behaviors;
  * @since     1.11.0
  */
 class Less extends \CBehavior {
-	const CACHE_PATH='application.runtime.less';
+	const CACHE_PATH='application.runtime.sweelix.less';
 	const CACHE_KEY_PREFIX='sweelix.behaviors.less.compilation.';
 	/**
 	 * Attaches the behavior object only if owner is instance of CClientScript
