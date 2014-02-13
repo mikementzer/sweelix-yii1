@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\behaviors;
+use sweelix\yii1\web\helpers\Html;
 
 /**
  * Class Render
@@ -94,7 +95,7 @@ class Render extends \CBehavior {
 	 * @since  1.1.0
 	 */
 	public function redirectJs($url, $timer=null, $terminate=true) {
-		$redirectJs = \Sweeml::raiseRedirect($url, $timer);
+		$redirectJs = Html::raiseRedirect($url, $timer);
 		if(\Yii::app()->getRequest()->getIsAjaxRequest() === true) {
 			header('Content-Type: application/javascript');
 			echo $redirectJs;
@@ -152,7 +153,7 @@ class Render extends \CBehavior {
 			header($key.': '.$value);
 		}
 		header('Content-Type: application/json');
-		if((\Yii::app()->getRequest()->getRequestType() === 'GET') || (Yii::app()->getRequest()->getRequestType() === 'HEAD')) {
+		if((\Yii::app()->getRequest()->getRequestType() === 'GET') || (\Yii::app()->getRequest()->getRequestType() === 'HEAD')) {
 			$this->sendEtagHeader($data);
 		}
 		self::sendHeader($httpCode);
