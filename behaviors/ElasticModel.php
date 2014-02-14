@@ -67,7 +67,7 @@ use sweelix\yii1\web\Image;
  * @package   sweelix.yii1.web.behaviors
  * @since     2.0.0
  */
- class SwElasticModelBehavior extends \CModel implements \IBehavior {
+ class ElasticModel extends \CModel implements \IBehavior {
 
 
  	/**
@@ -593,8 +593,8 @@ use sweelix\yii1\web\Image;
  	 * This function reload the template.
  	 * It is used when the assignement of the templateId is done after the creation.
  	 * Ex :
- 	 * $node = new SwNode();
- 	 * $node->attributes = $_POST['SwNode'];
+ 	 * $node = new Node();
+ 	 * $node->attributes = $_POST['Node'];
  	 * Here we need to reconfigure the node to reload the possible templateId assigned in the $_POST.
  	 */
  	public function reconfigure() {
