@@ -87,7 +87,7 @@ class UploadFile extends \CAction {
 						// Read binary input stream and append it to temp file
 						$in = fopen($_FILES['file']['tmp_name'], "rb");
 						if ($in !== false) {
-							while (($buff = fread($in, 4096)) !== false) {
+							while (($buff = fread($in, 4096))) {
 								fwrite($out, $buff);
 							}
 						} else {
@@ -111,7 +111,7 @@ class UploadFile extends \CAction {
 					// Read binary input stream and append it to temp file
 					$in = fopen("php://input", "rb");
 					if ($in !== false) {
-						while (($buff = fread($in, 4096)) !== false) {
+						while (($buff = fread($in, 4096))) {
 							fwrite($out, $buff);
 						}
 						$response['fileSize'] = filesize($targetPath . DIRECTORY_SEPARATOR . $fileName);

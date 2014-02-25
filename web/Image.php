@@ -47,7 +47,7 @@ class Image extends BaseImage {
 			\Yii::log(\Yii::t('sweelix', '{object} has not been defined', array('{object}'=>'ImageConfig')), \CLogger::LEVEL_ERROR, 'sweelix.yii1.web');
 			throw new \CException(\Yii::t('sweelix', 'ImageConfig, component has not been defined'));
 		}
-		$this->cachePath = $module->getCachePath();
+		static::$cachePath = $module->getCachePath();
 		$this->cachingMode = $module->getCachingMode();
 		$this->setQuality($module->getQuality());
 		self::$urlSeparator = $module->getUrlSeparator();
