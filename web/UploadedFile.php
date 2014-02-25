@@ -23,7 +23,7 @@ namespace sweelix\yii1\web;
  *
  * <code>
  * 	...
- * 		// file was created as Sweeml::asyncFileUpload($file, 'uploadedFile', $options)
+ * 		// file was created as Html::asyncFileUpload($file, 'uploadedFile', $options)
  * 		$file = new MyFileModel();
  * 		if(isset($_POST['MyFileModel']) == true) {
  * 			// get instances : retrieve the file uploaded for current property
@@ -39,7 +39,7 @@ namespace sweelix\yii1\web;
  *
  * <code>
  * 	...
- * 		// file was created as multi file upload : Sweeml::asyncFileUpload($file, 'uploadedFile', array(..., multiSelection=>true,...)
+ * 		// file was created as multi file upload : Html::asyncFileUpload($file, 'uploadedFile', array(..., multiSelection=>true,...)
  * 		$file = new MyFileModel();
  * 		if(isset($_POST['MyFileModel']) == true) {
  * 			// get instances : retrieve all files uploaded for current property
@@ -54,12 +54,12 @@ namespace sweelix\yii1\web;
  *
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  web
- * @package   Sweeml.web
+ * @package   sweelix.yii1.web
  * @since     1.1
  */
 class UploadedFile extends \CComponent {
@@ -135,7 +135,7 @@ class UploadedFile extends \CComponent {
 		$infos = [];
 		$infos['original'] = $attribute;
 		\CHtml::resolveNameID($model, $attribute, $infos);
-		if(method_exists('Sweeml', 'modelName') === true) {
+		if(method_exists('\CHtml', 'modelName') === true) {
 			$infos['class'] = \CHtml::modelName($model);
 		} else {
 			$infos['class'] = get_class($model);
