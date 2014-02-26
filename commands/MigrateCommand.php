@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\commands;
+\Yii::import('system.cli.commands.MigrateCommand');
 
 /**
  * This command find all migrations available and perform
