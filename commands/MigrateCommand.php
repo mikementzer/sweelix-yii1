@@ -123,6 +123,13 @@ class MigrateCommand extends  \MigrateCommand {
 			}
 		}
 		require_once($file);
+
+		$classList = get_declared_classes();
+		$lastClass = array_pop($classList);
+
+		if(strpos($lastClass, $class) > 0) {
+			$class = $lastClass;
+		}
 		$migration=new $class;
 		$migration->setDbConnection($this->getDbConnection());
 		return $migration;
