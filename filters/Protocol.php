@@ -45,6 +45,9 @@ namespace sweelix\yii1\filters;
  * @package   sweelix.yii1.filters
  */
 class Protocol extends \CFilter {
+	/**
+	 * @var bool is secure or not
+	 */
 	private $_secure;
 
 	/**
