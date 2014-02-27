@@ -19,8 +19,8 @@ use sweelix\yii1\web\Image;
 /**
  * Class ImageConfig
  *
- * This module allow automatic configuration for class SwCacheImage.
- * Once module is configured , SwCacheImage inherit of basic properties
+ * This module allow automatic configuration for class Image.
+ * Once module is configured , Image inherit of basic properties
  * such as
  *
  *  - cachePath

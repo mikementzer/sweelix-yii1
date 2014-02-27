@@ -37,7 +37,7 @@ namespace sweelix\yii1\components\Parameters;
  */
 class Parameters extends \CApplicationComponent implements \ArrayAccess {
 
-	const CACHE_KEY='sweelix.sweekit.SwParameters';
+	const CACHE_KEY='sweelix.yii1.components.Parameters';
 
 	/**
 	 * @var string id for database

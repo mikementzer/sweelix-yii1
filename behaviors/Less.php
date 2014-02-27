@@ -68,6 +68,7 @@ namespace sweelix\yii1\behaviors;
 class Less extends \CBehavior {
 	const CACHE_PATH='application.runtime.sweelix.less';
 	const CACHE_KEY_PREFIX='sweelix.behaviors.less.compilation.';
+	const PROFILE_KEY_PREFIX='sweelix.behaviors.less.';
 	/**
 	 * Attaches the behavior object only if owner is instance of CClientScript
 	 * or one of its derivative
@@ -188,7 +189,7 @@ class Less extends \CBehavior {
 	 * @since  1.11.0
 	 */
 	public function registerLessFile($url,$media='') {
-		\Yii::beginProfile('SwLessBehavior.registerLessFile','sweekit.profile');
+		\Yii::beginProfile(self::PROFILE_KEY_PREFIX.'.registerLessFile');
 
 		$cssFileName = pathinfo($url, PATHINFO_FILENAME).'.css';
 		$cssFilePath = $this->getCacheDirectory().DIRECTORY_SEPARATOR.$cssFileName;
@@ -207,7 +208,7 @@ class Less extends \CBehavior {
 		$params=func_get_args();
 		$this->recordCachingAction('clientScript','registerLessFile',$params);
 
-		\Yii::endProfile('SwLessBehavior.registerLessFile','sweekit.profile');
+		\Yii::endProfile(self::PROFILE_KEY_PREFIX.'.registerLessFile');
 		return $this->getOwner()->registerCssFile($urlCss, $media);
 	}
 
@@ -222,7 +223,7 @@ class Less extends \CBehavior {
 	 * @since  1.11.0
 	 */
 	public function registerLess($id, $less, $media='') {
-		\Yii::beginProfile('SwLessBehavior.registerLess','sweekit.profile');
+		\Yii::beginProfile(self::PROFILE_KEY_PREFIX.'.registerLess');
 
 		$css = false;
 		if(($this->getForceRefresh() === false) && ($this->getCache() !== null)) {
@@ -240,7 +241,7 @@ class Less extends \CBehavior {
 		$params=func_get_args();
 		$this->recordCachingAction('clientScript','registerLess',$params);
 
-		\Yii::endProfile('SwLessBehavior.registerLess','sweekit.profile');
+		\Yii::endProfile(self::PROFILE_KEY_PREFIX.'.registerLess');
 		return $this->getOwner()->registerCss($id.'-less', $css, $media);
 	}
 

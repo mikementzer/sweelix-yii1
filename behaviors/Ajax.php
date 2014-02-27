@@ -19,7 +19,7 @@ namespace sweelix\yii1\behaviors;
  * Class Ajax
  *
  * This behavior implements two methods in the
- * request which will be used heavily @see Sweeml
+ * request which will be used heavily @see Html
  *
  * <code>
  * 	...
@@ -42,7 +42,7 @@ namespace sweelix\yii1\behaviors;
  * 			...
  * 			if(Yii::app()->request->isJsAjaxRequest == true) {
  * 				// this will raise an event using sweelix callback in order to open a shadowbox
- * 				$this->renderJs(Sweeml::raiseOpenShadowbox(array('index'), array('width'=>400, 'height'=>250));
+ * 				$this->renderJs(Html::raiseOpenShadowbox(array('index'), array('width'=>400, 'height'=>250));
  * 			} elseif(Yii::app()->request->isJsonAjaxRequest == true) {
  * 				$this->renderJson($data);
  * 			} elseif(Yii::app()->request->isAjaxRequest == true) {

@@ -29,7 +29,7 @@ namespace sweelix\yii1\web;
  * 			// get instances : retrieve the file uploaded for current property
  * 			// we can retrieve the first uploaded file
  * 			$uplodadedFile = UploadedFile::getInstance($file, 'uploadedFile');
- * 			// $uploadedFile is an SwUploadFile
+ * 			// $uploadedFile is an UploadedFile
  * 			if($uploadedFile !== null) {
  * 				$uploadedFile->saveAs('targetDirectory/'.$uploadedFile->getName());
  * 			}
@@ -90,12 +90,12 @@ class UploadedFile extends \CComponent {
 
 	/**
 	 * Returns an instance of the first uploaded file for selected attribute.
-	 * The file should be uploaded using {@link Sweeml::asyncFileUpload}.
+	 * The file should be uploaded using {@link Html::asyncFileUpload}.
 	 *
 	 * @param CModel $model     the model instance
 	 * @param string $attribute the attribute name. Tabular file uploading is supported.
 	 *
-	 * @return SwUploadedFile the instance of the uploaded file.
+	 * @return UploadedFile the instance of the uploaded file.
 	 * @since  1.1.0
 	 */
 	public static function getInstance($model, $attribute) {
@@ -128,7 +128,7 @@ class UploadedFile extends \CComponent {
 	 * @param CModel $model     the model instance
 	 * @param string $attribute the attribute name.
 	 *
-	 * @return array array of SwUploadedFile objects.
+	 * @return array array of UploadedFile objects.
 	 * @since  1.1.0
 	 */
 	public static function getInstances($model, $attribute) {
@@ -281,7 +281,7 @@ class UploadedFile extends \CComponent {
 	}
 
 	/**
-	 * Cleans up the loaded SwUploadedFile instances.
+	 * Cleans up the loaded UploadedFile instances.
 	 * This method is mainly used by test scripts to set up a fixture.
 	 *
 	 * @return void

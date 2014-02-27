@@ -17,7 +17,7 @@ namespace sweelix\yii1\web;
 use sweelix\image\Image as BaseImage;
 
 /**
- * Class SwCacheImage wraps @see SwImage and
+ * Class Image wraps @see sweelix\image\Image and
  * Yii into one class to inherit Yii config
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
@@ -35,8 +35,8 @@ class Image extends BaseImage {
 	 * allow basic image manipulation
 	 *
 	 * @param string  $fileImage  image name with path
-	 * @param integer $quality    quality, default is @see SwImage::_quality
-	 * @param integer $ratio      ratio, default is @see SwImage::_ratio
+	 * @param integer $quality    quality, default is @see Image::_quality
+	 * @param integer $ratio      ratio, default is @see Image::_ratio
 	 * @param string  $base64Data image data base64 encoded
 	 *
 	 * @return Image
@@ -64,7 +64,7 @@ class Image extends BaseImage {
 	 * @param integer $ratio      ratio, default is @see BaseImage::_ratio
 	 * @param string  $base64Data image data base64 encoded
 	 *
-	 * @return SwCacheImage
+	 * @return Image
 	 */
 	public static function create($fileImage, $quality=null, $ratio=null, $base64Data=null) {
 		\Yii::trace(\Yii::t('sweelix', '{class} get instance of image', array('{class}'=>__CLASS__)), 'sweelix.yii1.web');

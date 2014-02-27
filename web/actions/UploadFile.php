@@ -17,7 +17,7 @@ namespace sweelix\yii1\web\actions;
 use sweelix\yii1\web\UploadedFile;
 
 /**
- * This SwUploadAction handle the xhr /swfupload process
+ * This UploadFile handle the xhr /swfupload process
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2013 Sweelix
@@ -25,7 +25,7 @@ use sweelix\yii1\web\UploadedFile;
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  actions
- * @package   Sweeml.actions
+ * @package   sweelix.yii1.web.actions
  * @since     1.1
  */
 class UploadFile extends \CAction {

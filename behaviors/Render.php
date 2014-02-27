@@ -20,7 +20,7 @@ use sweelix\yii1\web\helpers\Html;
  * Class Render
  *
  * This behavior implements two methods in the
- * controller which will be used heavily @see Sweeml
+ * controller which will be used heavily @see Html
  *
  * <code>
  * 	...
@@ -44,7 +44,7 @@ use sweelix\yii1\web\helpers\Html;
  * 		public function actionTest() {
  * 			if(Yii::app()->request->isAjaxRequest == true) {
  * 				// this will raise an event using sweelix callback in order to open a shadowbox
- * 				$this->renderJs(Sweeml::raiseOpenShadowbox(array('index'), array('width'=>400, 'height'=>250));
+ * 				$this->renderJs(Html::raiseOpenShadowbox(array('index'), array('width'=>400, 'height'=>250));
  * 			}
  * 			...
  * 		}

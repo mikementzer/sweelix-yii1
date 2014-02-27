@@ -27,7 +27,7 @@ use sweelix\yii1\web\UploadedFile;
  * previously set. Please note that this cannot be done if input is tabular:
  * <pre>
  *  foreach($models as $i=>$model)
- *     $model->attribute = SwUploadedFile::getInstance($model, "[$i]attribute");
+ *     $model->attribute = UploadedFile::getInstance($model, "[$i]attribute");
  * </pre>
  * Please note that you must use {@link UploadedFile::getInstances} for multiple
  * file uploads.
