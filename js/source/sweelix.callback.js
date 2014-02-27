@@ -1,8 +1,8 @@
 /**
  * File sweelix.callback.js
  *
- * This is a simple "trace" / "debug" script. It allow
- * debug process whithout breaking the page
+ * This is a simple "callback" script. It allow
+ * callback processing
  * <code>
  * {
  * 	'callback':	{
@@ -13,12 +13,12 @@
  * </code>
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2011 Sweelix
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   2.0.0
  * @link      http://www.sweelix.net
- * @category  javascript
- * @package   Sweelix.javascript
+ * @category  js
+ * @package   sweelix.yii1.web.js
  */
 (function($s){
 	// var args = Array.prototype.slice.call(arguments);

@@ -1,25 +1,13 @@
 /**
- * File jquery.sweelix.debug.js
- *
- * This is a simple "trace" / "debug" script. It allow
- * debug process whithout breaking the page
- * <code>
- * {
- * 	'debug':	{
- * 		'debug':true, 
- * 		'fallback':false,
- * 		'method':'log'
- * 	}
- * }
- * </code>
+ * File jquery.sweelix.shadowbox.js
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2011 Sweelix
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   2.0.0
  * @link      http://www.sweelix.net
- * @category  javascript
- * @package   Sweelix.javascript
+ * @category  js
+ * @package   sweelix.yii1.web.js
  */
 if(typeof(sweelix) != 'object') {
 	throw "Sweelix is missing";
