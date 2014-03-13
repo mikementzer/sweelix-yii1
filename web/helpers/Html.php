@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  helpers
  * @package   sweelix.yii1.web.helpers
@@ -55,7 +55,7 @@ use sweelix\yii1\web\UploadedFile;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  helpers
  * @package   sweelix.yii1.web.helpers

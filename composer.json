@@ -10,15 +10,9 @@
 	} ],
 	"require" : {
 		"php" : ">=5.4.0",
-		"yiisoft/yii" : "=1.1.14",
-		"sweelix/image" : "=1.0.0",
-		"leafo/lessphp" : "=0.4.0"
-	},
-	"require-dev" : {
-		"php" : ">=5.4.0",
-		"yiisoft/yii" : ">=1.1.14",
-		"sweelix/image" : "*",
-		"leafo/lessphp" : "=0.4.0"
+		"yiisoft/yii" : "1.1.14",
+		"sweelix/image" : "1.0.0",
+		"leafo/lessphp" : "0.4.0"
 	},
 	"autoload" : {
 		"psr-4" : {
