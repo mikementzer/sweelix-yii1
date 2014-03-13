@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.behaviors
@@ -23,7 +23,7 @@ use sweelix\yii1\web\UploadedFile as BaseUploadedFile;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  actions
  * @package   sweelix.yii1.web.actions
@@ -90,7 +90,7 @@ class UploadedFile extends \CBehavior {
 	 * @param CModel $model owner of the behavior
 	 *
 	 * @return void
-	 * @since  XXX
+	 * @since  3.0.0
 	 */
 	public function setOwnerModel($model) {
 		$this->_model = $model;
@@ -100,7 +100,7 @@ class UploadedFile extends \CBehavior {
 	 * Get owner model
 	 *
 	 * @return CModel
-	 * @since  XXX
+	 * @since  3.0.0
 	 */
 	public function getOwnerModel() {
 		if($this->_model === null) {
