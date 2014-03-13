@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.web.behaviors
@@ -61,7 +61,7 @@ use sweelix\yii1\web\Image;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.web.behaviors
@@ -81,7 +81,7 @@ use sweelix\yii1\web\Image;
  	 * @param string $scenarios list of scenarios to remove separated with ,
  	 *
  	 * @return void
- 	 * @since  XXX
+ 	 * @since  3.0.0
  	 */
  	public function setExceptScenarios($scenarios) {
 		$this->_exceptScenarios = $scenarios;
@@ -579,7 +579,7 @@ use sweelix\yii1\web\Image;
  	 * @param string $fileAttribute if set retrieve information for specific file attribute
  	 *
  	 * @return array
- 	 * @since  XXX
+ 	 * @since  3.0.0
  	 */
  	public function getResourcePath($file = null) {
  		$resourcesPath = null;
