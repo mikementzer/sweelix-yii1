@@ -8,13 +8,13 @@ Installation
 
 If you use Packagist for installing packages, then you can update your composer.json like this :
 
-	``` json
-	{
-		"require": {
-			"sweelix/yii1": "*"
-		}
+``` json
+{
+	"require": {
+		"sweelix/yii1": "*"
 	}
-	```
+}
+```
 
 
 
