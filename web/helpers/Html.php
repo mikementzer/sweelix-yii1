@@ -190,7 +190,8 @@ class Html extends \CHtml {
 		}
 
 		if($fileList !== null) {
-			if(is_callable(array($model, 'getResourcePath')) === true) {
+			// if(method_exists($model, 'getResourcePath') || ($model->canGetProperty('resourcePath') === true)) {
+            if(isset($model->resourcePath) === true) {
 				$resourcePath = $model->getResourcePath($attribute);
 				$resourcePath = $resourcePath['pathAlias'];
 			} else {
@@ -208,7 +209,6 @@ class Html extends \CHtml {
 			}
 		}
 		$config = static::prepareAsyncFileUpload($htmlOptions);
-
 		if($model->hasErrors($attribute))
 			static::addErrorCss($htmlOptions);
 		return static::renderAsyncFileUpload($value, $htmlOptions, $config);
