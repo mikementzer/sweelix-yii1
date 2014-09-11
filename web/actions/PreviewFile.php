@@ -189,7 +189,8 @@ class PreviewFile extends \CAction {
 				} else {
 					$ext = strtolower(pathinfo($file,PATHINFO_EXTENSION));
 					//TODO:handle default image
-					$imageName = dirname(__DIR__).DIRECTORY_SEPARATOR.'icons'.DIRECTORY_SEPARATOR.$ext.'.png';
+					$imageName = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'icons'.DIRECTORY_SEPARATOR.$ext.'.png';
+
 					if(file_exists($imageName)) {
 						$image = Image::create($imageName)->resize($width, $height)->setFit($fit);
 						$imageContentType = $image->getContentType();
