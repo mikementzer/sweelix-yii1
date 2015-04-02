@@ -1,3 +1,6 @@
+## 3.1.2
+ - Change composer.json to allow Yii >=1.1.4
+
 ## 3.1.0
 
   - adding missing files (license, ...)
