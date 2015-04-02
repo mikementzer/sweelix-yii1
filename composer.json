@@ -10,7 +10,7 @@
 	} ],
 	"require" : {
 		"php" : ">=5.4.0",
-		"yiisoft/yii" : "1.1.14",
+		"yiisoft/yii" : ">=1.1.14",
 		"sweelix/image" : ">=1.0.0",
 		"leafo/lessphp" : "0.4.0"
 	},
