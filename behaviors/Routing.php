@@ -30,7 +30,7 @@ class Routing extends \CBehavior {
 	/**
 	 * @var array list of modules
 	 */
-	public $modules = [];
+	public $modules = array();
 
 	/**
 	 * Event where we want to attach ourselves
@@ -42,9 +42,9 @@ class Routing extends \CBehavior {
 	 * @since  1.9.0
 	 */
 	public function events() {
-		return [
+		return array(
 			'onBeginRequest' => 'beginRequest',
-		];
+        );
 	}
 
 	/**
@@ -55,10 +55,10 @@ class Routing extends \CBehavior {
 	 */
 	public function beginRequest() {
 		if(is_array($this->modules) === false) {
-			$this->modules = [$this->modules];
+			$this->modules = array($this->modules);
 		}
 		foreach($this->modules as $module) {
-			if(is_callable([\Yii::app()->getModule($module), 'buildRoute']) === true) {
+			if(is_callable(array(\Yii::app()->getModule($module), 'buildRoute')) === true) {
 				\Yii::app()->getModule($module)->buildRoute();
 			}
 		}
