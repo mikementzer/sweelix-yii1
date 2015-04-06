@@ -33,7 +33,7 @@ class OfficialNumber extends \CValidator {
 	/**
 	 * @var array list of available sub validators
 	 */
-	public static $officialNumberValidators = [
+	public static $officialNumberValidators = array(
 		'iban' => 'iso13616',
 		'visa' => 'iso7812',
 		'mastercard' => 'iso7812',
@@ -44,7 +44,7 @@ class OfficialNumber extends \CValidator {
 		'vat' => 'vat',
 		'insee' => 'modulo97',
 		'rcs' => 'rcs',
-	];
+    );
 
 	/**
 	 * @var string type of element to validate
