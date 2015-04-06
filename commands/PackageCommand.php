@@ -34,18 +34,18 @@ class PackageCommand extends \CConsoleCommand {
 	/**
 	 * @var array forbidden directories
 	 */
-	public $forbiddenDirectories = [
+	public $forbiddenDirectories = array(
 		'cache',
 		'assets',
 		'runtime',
 		'vendor',
-	];
-	public $versionningDirectories = [
+    );
+	public $versionningDirectories = array(
 		'.git',
 		'.svn',
 		'.cvs',
 		'.settings', // zend studio
-	];
+    );
 
 	/**
 	 * @var string initial path
@@ -55,7 +55,7 @@ class PackageCommand extends \CConsoleCommand {
 	/**
 	 * @var array extensions to re-document
 	 */
-	public $extensions = ['php'];
+	public $extensions = array('php');
 	/**
 	 * @var array handle files to parse (used for lazy load)
 	 */
