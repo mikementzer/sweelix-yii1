@@ -16,6 +16,8 @@
 namespace sweelix\yii1\components;
 
 use sweelix\yii1\web\Image;
+use CException;
+use Yii;
 
 /**
  * Class ImageConfig
@@ -60,11 +62,11 @@ class ImageConfig extends \CApplicationComponent
     /**
      * @var boolean define status of the module
      */
-    private $_initialized = false;
+    private $initialized = false;
     /**
      * @var integer define caching mode @see Image for further details
      */
-    private $_cachingMode = null;
+    private $cachingMode = null;
 
     /**
      * Caching mode setter @see Image::cachingMode for further details
@@ -76,10 +78,10 @@ class ImageConfig extends \CApplicationComponent
      */
     public function setCachingMode($mode)
     {
-        if ($this->_initialized === true) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, cachingMode can be defined only in configuration'));
+        if ($this->initialized === true) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, cachingMode can be defined only in configuration'));
         }
-        $this->_cachingMode = $mode;
+        $this->cachingMode = $mode;
     }
 
     /**
@@ -90,13 +92,13 @@ class ImageConfig extends \CApplicationComponent
      */
     public function getCachingMode()
     {
-        return $this->_cachingMode;
+        return $this->cachingMode;
     }
 
     /**
      * @var string this separator is used to build Urls
      */
-    private $_urlSeparator = '/';
+    private $urlSeparator = '/';
 
     /**
      * Url separator setter @see Image::urlSeparator for further details
@@ -108,10 +110,10 @@ class ImageConfig extends \CApplicationComponent
      */
     public function setUrlSeparator($urlSeparator)
     {
-        if ($this->_initialized === true) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, urlSeparator can be defined only in configuration'));
+        if ($this->initialized === true) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, urlSeparator can be defined only in configuration'));
         }
-        $this->_urlSeparator = $urlSeparator;
+        $this->urlSeparator = $urlSeparator;
     }
 
     /**
@@ -122,13 +124,13 @@ class ImageConfig extends \CApplicationComponent
      */
     public function getUrlSeparator()
     {
-        return $this->_urlSeparator;
+        return $this->urlSeparator;
     }
 
     /**
      * @var string define default cache path
      */
-    private $_cachePath = 'cache';
+    private $cachePath = 'cache';
 
     /**
      * Cache path setter @see Image::cachePath for further details
@@ -140,10 +142,10 @@ class ImageConfig extends \CApplicationComponent
      */
     public function setCachePath($cachePath)
     {
-        if ($this->_initialized === true) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, cachePath can be defined only in configuration'));
+        if ($this->initialized === true) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, cachePath can be defined only in configuration'));
         }
-        $this->_cachePath = $cachePath;
+        $this->cachePath = $cachePath;
     }
 
     /**
@@ -154,13 +156,13 @@ class ImageConfig extends \CApplicationComponent
      */
     public function getCachePath()
     {
-        return $this->_cachePath;
+        return $this->cachePath;
     }
 
     /**
      * @var string this image is used when original image cannot be found
      */
-    private $_errorImage = 'error.jpg';
+    private $errorImage = 'error.jpg';
 
     /**
      * Error image setter @see Image::errorImage for further details
@@ -172,10 +174,10 @@ class ImageConfig extends \CApplicationComponent
      */
     public function setErrorImage($errorImage)
     {
-        if ($this->_initialized === true) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, errorImage can be defined only in configuration'));
+        if ($this->initialized === true) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, errorImage can be defined only in configuration'));
         }
-        $this->_errorImage = $errorImage;
+        $this->errorImage = $errorImage;
     }
 
     /**
@@ -186,13 +188,13 @@ class ImageConfig extends \CApplicationComponent
      */
     public function getErrorImage()
     {
-        return $this->_errorImage;
+        return $this->errorImage;
     }
 
     /**
      * @var integer define the quality used for the rendering
      */
-    private $_quality = 90;
+    private $quality = 90;
 
     /**
      * Quality setter @see Image::setQuality() for further details
@@ -204,10 +206,10 @@ class ImageConfig extends \CApplicationComponent
      */
     public function setQuality($quality)
     {
-        if ($this->_initialized === true) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, quality can be defined only in configuration'));
+        if ($this->initialized === true) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, quality can be defined only in configuration'));
         }
-        $this->_quality = $quality;
+        $this->quality = $quality;
     }
 
     /**
@@ -218,7 +220,7 @@ class ImageConfig extends \CApplicationComponent
      */
     public function getQuality()
     {
-        return $this->_quality;
+        return $this->quality;
     }
 
     /**
@@ -230,10 +232,10 @@ class ImageConfig extends \CApplicationComponent
     public function init()
     {
         $this->attachBehaviors($this->behaviors);
-        if ((is_writable($this->_cachePath) === false) || (is_dir($this->_cachePath) === false)) {
-            throw new \CException(\Yii::t('sweelix', 'ImageConfig, cachePath is invalid'));
+        if ((is_writable($this->cachePath) === false) || (is_dir($this->cachePath) === false)) {
+            throw new CException(Yii::t('sweelix', 'ImageConfig, cachePath is invalid'));
         }
         $this->setCachingMode(Image::MODE_NORMAL);
-        $this->_initialized = true;
+        $this->initialized = true;
     }
 }

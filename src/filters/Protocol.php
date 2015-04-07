@@ -15,6 +15,8 @@
 
 namespace sweelix\yii1\filters;
 
+use Yii;
+
 /**
  * This is the filter class which allow forcing http or https.
  * This filter can be applied using this filter config :
@@ -49,7 +51,7 @@ class Protocol extends \CFilter
     /**
      * @var bool is secure or not
      */
-    private $_secure;
+    private $secure;
 
     /**
      * Define http mode we want
@@ -64,10 +66,10 @@ class Protocol extends \CFilter
         $mode = strtolower($mode);
         switch ($mode) {
             case 'https':
-                $this->_secure = true;
+                $this->secure = true;
                 break;
             case 'http':
-                $this->_secure = false;
+                $this->secure = false;
                 break;
         }
     }
@@ -80,7 +82,7 @@ class Protocol extends \CFilter
      */
     public function getIsSecureConnection()
     {
-        return $this->_secure;
+        return $this->secure;
     }
 
     /**
@@ -91,7 +93,7 @@ class Protocol extends \CFilter
      */
     public function getIsForcedMode()
     {
-        return \CPropertyValue::ensureBoolean($this->_secure !== null);
+        return \CPropertyValue::ensureBoolean($this->secure !== null);
     }
 
     /**
@@ -106,15 +108,15 @@ class Protocol extends \CFilter
     protected function preFilter($filterChain)
     {
         if ($this->isForcedMode === true) {
-            if (\Yii::app()->getRequest()->isSecureConnection !== $this->isSecureConnection) {
+            if (Yii::app()->getRequest()->isSecureConnection !== $this->isSecureConnection) {
                 // we have to force the switch
                 if ($this->isSecureConnection === true) {
                     $url = 'https://';
                 } else {
                     $url = 'http://';
                 }
-                $url .= \Yii::app()->getRequest()->serverName . \Yii::app()->getRequest()->requestUri;
-                \Yii::app()->getRequest()->redirect($url);
+                $url .= Yii::app()->getRequest()->serverName . Yii::app()->getRequest()->requestUri;
+                Yii::app()->getRequest()->redirect($url);
                 return false;
             }
         }

@@ -15,6 +15,12 @@
 
 namespace sweelix\yii1\components\Parameters;
 
+use CApplicationComponent;
+use CMap;
+use CException;
+use ArrayAccess;
+use Yii;
+
 /**
  * This application component allow the use of extended parameters
  * Check migration m121021_122255_createParameters.php to create
@@ -35,7 +41,7 @@ namespace sweelix\yii1\components\Parameters;
  * @category  components
  * @package   sweelix.yii1.components
  */
-class Parameters extends \CApplicationComponent implements \ArrayAccess
+class Parameters extends CApplicationComponent implements ArrayAccess
 {
 
     const CACHE_KEY = 'sweelix.yii1.components.Parameters';
@@ -59,7 +65,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
     /**
      * @var array parameters
      */
-    private $_parameters;
+    private $parameters;
 
     /**
      * Init the module (preload data)
@@ -72,7 +78,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
     {
         parent::init();
         $this->loadParameters();
-        $this->_parameters = \CMap::mergeArray($this->_parameters, \Yii::app()->params);
+        $this->parameters = CMap::mergeArray($this->parameters, Yii::app()->params);
     }
 
     /**
@@ -84,7 +90,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        $result = $this->_parameters;
+        $result = $this->parameters;
         $finalResult = true;
         if ($offset !== null) {
             $keyPath = explode('.', $offset);
@@ -112,7 +118,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        $result = $this->_parameters;
+        $result = $this->parameters;
         if ($offset !== null) {
             $keyPath = explode('.', $offset);
             foreach ($keyPath as $element) {
@@ -140,7 +146,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        throw new \CException('Parameters are read-only');
+        throw new CException('Parameters are read-only');
     }
 
     /**
@@ -152,7 +158,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        throw new \CException('Parameters are read-only');
+        throw new CException('Parameters are read-only');
     }
 
     /**
@@ -164,7 +170,7 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     protected function fetchParameters()
     {
-        $dbConnection = \Yii::app()->getComponent($this->connectionID);
+        $dbConnection = Yii::app()->getComponent($this->connectionID);
         $data = array();
         if ($dbConnection instanceof \CDbConnection) {
             if ($dbConnection->tablePrefix !== null) {
@@ -204,15 +210,15 @@ class Parameters extends \CApplicationComponent implements \ArrayAccess
      */
     protected function loadParameters()
     {
-        if ($this->cacheID !== false && ($cache = \Yii::app()->getComponent($this->cacheID)) !== null) {
+        if ($this->cacheID !== false && ($cache = Yii::app()->getComponent($this->cacheID)) !== null) {
             if (($data = $cache->get(self::CACHE_KEY)) !== false) {
-                $this->_parameters = $data;
+                $this->parameters = $data;
             } else {
-                $this->_parameters = $this->fetchParameters();
-                $cache->set(self::CACHE_KEY, $this->_parameters);
+                $this->parameters = $this->fetchParameters();
+                $cache->set(self::CACHE_KEY, $this->parameters);
             }
         } else {
-            $this->_parameters = $this->fetchParameters();
+            $this->parameters = $this->fetchParameters();
         }
     }
 }

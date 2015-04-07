@@ -15,6 +15,9 @@
 
 namespace sweelix\yii1\validators\OfficialNumber;
 
+use CException;
+use Yii;
+
 /**
  * Class OfficialNumber allow easy validation
  * of official numbers such as BBAN, IBAN, ...
@@ -78,13 +81,14 @@ class OfficialNumber extends \CValidator
                 $method = 'check' . ucfirst(self::$officialNumberValidators[$this->type]);
                 $result = call_user_func(array($this, $method), $value);
                 if ($result === false) {
-                    $message = $this->message !== null ? $this->message : \Yii::t('sweelix',
-                        '{attribute} is not a valid {type}.');
+                    $message = $this->message !== null ?
+                        $this->message :
+                        Yii::t('sweelix', '{attribute} is not a valid {type}.');
                     $this->addError($object, $attribute, $message, array('{type}' => $this->type));
                 }
             }
         } else {
-            throw new \CException(\Yii::t('sweelix', 'type {type} is incorrect.', array('{type}' => $this->type)));
+            throw new CException(Yii::t('sweelix', 'type {type} is incorrect.', array('{type}' => $this->type)));
         }
 
 

@@ -16,6 +16,8 @@
 namespace sweelix\yii1\validators;
 
 use sweelix\yii1\web\UploadedFile;
+use CFileValidator;
+use Yii;
 
 /**
  * File verifies if an attribute is receiving a valid uploaded file.
@@ -55,7 +57,7 @@ use sweelix\yii1\web\UploadedFile;
  * @package   sweelix.yii1.validators
  * @since     1.1
  */
-class File extends \CFileValidator
+class File extends CFileValidator
 {
     /**
      * Set the attribute and then validates using {@link validateFile}.
@@ -64,7 +66,7 @@ class File extends \CFileValidator
      * @param CModel $object the object being validated
      * @param string $attribute the attribute being validated
      *
-     * @return void
+     * @return mixed
      * @since  1.1.0
      */
     protected function validateAttribute($object, $attribute)
@@ -78,10 +80,13 @@ class File extends \CFileValidator
                 return $this->emptyAttribute($object, $attribute);
             }
             if (count($files) > $this->maxFiles) {
-                $message = $this->tooMany !== null ? $this->tooMany : \Yii::t('yii',
-                    '{attribute} cannot accept more than {limit} files.');
-                $this->addError($object, $attribute, $message,
-                    array('{attribute}' => $attribute, '{limit}' => $this->maxFiles));
+                $message = $this->tooMany !== null ?
+                    $this->tooMany :
+                    Yii::t('yii', '{attribute} cannot accept more than {limit} files.');
+                $this->addError($object, $attribute, $message, array(
+                    '{attribute}' => $attribute,
+                    '{limit}' => $this->maxFiles
+                ));
             } else {
                 foreach ($files as $file) {
                     $this->validateFile($object, $attribute, $file);
@@ -106,7 +111,7 @@ class File extends \CFileValidator
      * @param string $attribute the attribute being validated
      * @param CUploadedFile $file uploaded file passed to check against a set of rules
      *
-     * @return void
+     * @return mixed
      * @since  1.1.0
      */
     protected function validateFile($object, $attribute, $file)
@@ -115,18 +120,24 @@ class File extends \CFileValidator
             return $this->emptyAttribute($object, $attribute);
         } else {
             if ($this->maxSize !== null && $file->getSize() > $this->maxSize) {
-                $message = $this->tooLarge !== null ? $this->tooLarge : \Yii::t('yii',
-                    'The file "{file}" is too large. Its size cannot exceed {limit} bytes.');
-                $this->addError($object, $attribute, $message,
-                    array('{file}' => $file->getName(), '{limit}' => $this->getSizeLimit()));
+                $message = $this->tooLarge !== null ?
+                    $this->tooLarge :
+                    Yii::t('yii', 'The file "{file}" is too large. Its size cannot exceed {limit} bytes.');
+                $this->addError($object, $attribute, $message, array(
+                    '{file}' => $file->getName(),
+                    '{limit}' => $this->getSizeLimit()
+                ));
             }
         }
 
         if ($this->minSize !== null && $file->getSize() < $this->minSize) {
-            $message = $this->tooSmall !== null ? $this->tooSmall : \Yii::t('yii',
-                'The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.');
-            $this->addError($object, $attribute, $message,
-                array('{file}' => $file->getName(), '{limit}' => $this->minSize));
+            $message = $this->tooSmall !== null ?
+                $this->tooSmall :
+                Yii::t('yii', 'The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.');
+            $this->addError($object, $attribute, $message, array(
+                '{file}' => $file->getName(),
+                '{limit}' => $this->minSize
+            ));
         }
 
         if ($this->types !== null) {
@@ -136,10 +147,13 @@ class File extends \CFileValidator
                 $types = $this->types;
             }
             if (!in_array(strtolower($file->getExtensionName()), $types)) {
-                $message = $this->wrongType !== null ? $this->wrongType : \Yii::t('yii',
-                    'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.');
-                $this->addError($object, $attribute, $message,
-                    array('{file}' => $file->getName(), '{extensions}' => implode(', ', $types)));
+                $message = $this->wrongType !== null ?
+                    $this->wrongType :
+                    Yii::t('yii', 'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.');
+                $this->addError($object, $attribute, $message, array(
+                    '{file}' => $file->getName(),
+                    '{extensions}' => implode(', ', $types)
+                ));
             }
         }
     }

@@ -15,6 +15,9 @@
 
 namespace sweelix\yii1\caching\dependencies;
 
+use CCacheDependency;
+use CException;
+
 /**
  * Class MultiFile
  *
@@ -28,7 +31,7 @@ namespace sweelix\yii1\caching\dependencies;
  * @category  caching
  * @package   sweelix.yii1.caching.dependencies
  */
-class MultiFile extends \CCacheDependency
+class MultiFile extends CCacheDependency
 {
 
     /**
@@ -41,7 +44,7 @@ class MultiFile extends \CCacheDependency
      *
      * @param array $files list of files to monitor
      *
-     * @return MultiFileCacheDependency
+     * @return MultiFile
      * @since  1.9.0
      */
     public function __construct($files = null)
@@ -66,7 +69,7 @@ class MultiFile extends \CCacheDependency
             }
             return md5($data);
         } else {
-            throw new \CException('MultiFile.files cannot be empty');
+            throw new CException('MultiFile.files cannot be empty');
         }
     }
 }
