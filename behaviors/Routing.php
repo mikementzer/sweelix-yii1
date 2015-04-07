@@ -15,6 +15,9 @@
 
 namespace sweelix\yii1\behaviors;
 
+use CBehavior;
+use Yii;
+
 /**
  * This class allow submodules to attach their own routes
  *
@@ -26,41 +29,44 @@ namespace sweelix\yii1\behaviors;
  * @category  behaviors
  * @package   sweelix.yii1.behaviors
  */
-class Routing extends \CBehavior {
-	/**
-	 * @var array list of modules
-	 */
-	public $modules = array();
+class Routing extends CBehavior
+{
+    /**
+     * @var array list of modules
+     */
+    public $modules = array();
 
-	/**
-	 * Event where we want to attach ourselves
-	 *
-	 * (non-PHPdoc)
-	 * @see CBehavior::events()
-	 *
-	 * @return array
-	 * @since  1.9.0
-	 */
-	public function events() {
-		return array(
-			'onBeginRequest' => 'beginRequest',
+    /**
+     * Event where we want to attach ourselves
+     *
+     * (non-PHPdoc)
+     * @see CBehavior::events()
+     *
+     * @return array
+     * @since  1.9.0
+     */
+    public function events()
+    {
+        return array(
+            'onBeginRequest' => 'beginRequest',
         );
-	}
+    }
 
-	/**
-	 * Run the specific methods (ask the modules to build their routes
-	 *
-	 * @return void
-	 * @since  1.9.0
-	 */
-	public function beginRequest() {
-		if(is_array($this->modules) === false) {
-			$this->modules = array($this->modules);
-		}
-		foreach($this->modules as $module) {
-			if(is_callable(array(\Yii::app()->getModule($module), 'buildRoute')) === true) {
-				\Yii::app()->getModule($module)->buildRoute();
-			}
-		}
-	}
+    /**
+     * Run the specific methods (ask the modules to build their routes
+     *
+     * @return void
+     * @since  1.9.0
+     */
+    public function beginRequest()
+    {
+        if (is_array($this->modules) === false) {
+            $this->modules = array($this->modules);
+        }
+        foreach ($this->modules as $module) {
+            if (is_callable(array(Yii::app()->getModule($module), 'buildRoute')) === true) {
+                Yii::app()->getModule($module)->buildRoute();
+            }
+        }
+    }
 }

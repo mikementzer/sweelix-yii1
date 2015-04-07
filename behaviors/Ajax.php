@@ -15,6 +15,10 @@
 
 namespace sweelix\yii1\behaviors;
 
+use CBehavior;
+use CException;
+use CHttpRequest;
+
 /**
  * Class Ajax
  *
@@ -63,8 +67,9 @@ namespace sweelix\yii1\behaviors;
  * @category  behaviors
  * @package   sweelix.yii1.behaviors
  * @since     1.1
+ * @method CHttpRequest getOwner() Get the request
  */
-class Ajax extends \CBehavior
+class Ajax extends CBehavior
 {
 
     /**
@@ -72,20 +77,23 @@ class Ajax extends \CBehavior
      * or one of its derivative
      * @see CBehavior::attach()
      *
-     * @param CController $owner the component that this behavior is to be attached to.
+     * @param \CController $owner the component that this behavior is to be attached to.
      *
      * @return void
      * @since  1.1.0
+     * @throws CException
      */
     public function attach($owner)
     {
-        if ($owner instanceof \CHttpRequest) {
+        if ($owner instanceof CHttpRequest) {
             parent::attach($owner);
         } else {
-            throw new \CException(__CLASS__.' can only be attached ot a CHttpRequest instance');
+            throw new CException(__CLASS__ . ' can only be attached ot a CHttpRequest instance');
         }
     }
+
     private $supportedTypes;
+
     /**
      * Get accepted types in array format ordered
      * by q desc
@@ -105,7 +113,7 @@ class Ajax extends \CBehavior
                 if (strpos($a, ';q=')) {
                     list($a, $q) = explode(';q=', $a);
                 }
-                if ($q>0) {
+                if ($q > 0) {
                     $this->supportedTypes[$a] = $q;
                 }
             }
@@ -126,8 +134,7 @@ class Ajax extends \CBehavior
      */
     public function getIsJsRequest($isAjax = true)
     {
-        if (
-            (($isAjax === true) && ($this->getOwner()->getIsAjaxRequest() === true))
+        if ((($isAjax === true) && ($this->getOwner()->getIsAjaxRequest() === true))
             || ($isAjax === false)
         ) {
             return in_array('application/javascript', $this->getAcceptedTypes());
@@ -147,10 +154,8 @@ class Ajax extends \CBehavior
      */
     public function getIsJsonRequest($isAjax = true)
     {
-        if ((
-                ($isAjax === true)
-                && ($this->getOwner()->getIsAjaxRequest() === true)
-            ) || ($isAjax === false)
+        if ((($isAjax === true) && ($this->getOwner()->getIsAjaxRequest() === true))
+            || ($isAjax === false)
         ) {
             return in_array('application/json', $this->getAcceptedTypes());
         } else {
