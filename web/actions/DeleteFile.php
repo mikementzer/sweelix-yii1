@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\web\actions;
+
 use sweelix\yii1\web\UploadedFile;
 
 /**
@@ -28,38 +29,40 @@ use sweelix\yii1\web\UploadedFile;
  * @package   sweelix.yii1.web.actions
  * @since     1.1
  */
-class DeleteFile extends \CAction {
-	/**
-	 * Run the action and perform the delete process
-	 *
-	 * @return void
-	 * @since  1.1.0
-	 */
-	public function run() {
-		try {
-			\Yii::trace(__METHOD__.'()', 'sweelix.yii1.web.actions');
-			$sessionId = \Yii::app()->getSession()->getSessionId();
-			$fileName = \Yii::app()->getRequest()->getParam('name', '');
-			if (strncmp($fileName, 'tmp://', 6) === 0) {
-				$fileName = str_replace('tmp://', '', $fileName);
-			}
+class DeleteFile extends \CAction
+{
+    /**
+     * Run the action and perform the delete process
+     *
+     * @return void
+     * @since  1.1.0
+     */
+    public function run()
+    {
+        try {
+            \Yii::trace(__METHOD__ . '()', 'sweelix.yii1.web.actions');
+            $sessionId = \Yii::app()->getSession()->getSessionId();
+            $fileName = \Yii::app()->getRequest()->getParam('name', '');
+            if (strncmp($fileName, 'tmp://', 6) === 0) {
+                $fileName = str_replace('tmp://', '', $fileName);
+            }
 
-			$id = \Yii::app()->getRequest()->getParam('id', 'unk');
-			$targetPath = \Yii::getPathOfAlias(UploadedFile::$targetPath).DIRECTORY_SEPARATOR.$sessionId.DIRECTORY_SEPARATOR.$id;
-			$response = array('fileName' => $fileName, 'status' => false, 'fileSize' => null);
-			if((file_exists($targetPath.DIRECTORY_SEPARATOR.$fileName) == true) && (is_file($targetPath.DIRECTORY_SEPARATOR.$fileName) == true)) {
-				unlink($targetPath.DIRECTORY_SEPARATOR.$fileName);
-				$response['status'] = true;
-			}
-			if(\Yii::app()->request->isAjaxRequest == true) {
-				$this->getController()->renderJson($response);
-			} else {
-				echo \CJSON::encode($response);
-			}
-		}
-		catch(\Exception $e) {
-			\Yii::log('Error in '.__METHOD__.'():'.$e->getMessage(), \CLogger::LEVEL_ERROR, 'sweelix.yii1.web.actions');
-			throw $e;
-		}
-	}
+            $id = \Yii::app()->getRequest()->getParam('id', 'unk');
+            $targetPath = \Yii::getPathOfAlias(UploadedFile::$targetPath) . DIRECTORY_SEPARATOR . $sessionId . DIRECTORY_SEPARATOR . $id;
+            $response = array('fileName' => $fileName, 'status' => false, 'fileSize' => null);
+            if ((file_exists($targetPath . DIRECTORY_SEPARATOR . $fileName) == true) && (is_file($targetPath . DIRECTORY_SEPARATOR . $fileName) == true)) {
+                unlink($targetPath . DIRECTORY_SEPARATOR . $fileName);
+                $response['status'] = true;
+            }
+            if (\Yii::app()->request->isAjaxRequest == true) {
+                $this->getController()->renderJson($response);
+            } else {
+                echo \CJSON::encode($response);
+            }
+        } catch (\Exception $e) {
+            \Yii::log('Error in ' . __METHOD__ . '():' . $e->getMessage(), \CLogger::LEVEL_ERROR,
+                'sweelix.yii1.web.actions');
+            throw $e;
+        }
+    }
 }

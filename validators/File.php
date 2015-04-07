@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\validators;
+
 use sweelix\yii1\web\UploadedFile;
 
 /**
@@ -54,74 +55,92 @@ use sweelix\yii1\web\UploadedFile;
  * @package   sweelix.yii1.validators
  * @since     1.1
  */
-class File extends \CFileValidator {
-	/**
-	 * Set the attribute and then validates using {@link validateFile}.
-	 * If there is any error, the error message is added to the object.
-	 *
-	 * @param CModel $object    the object being validated
-	 * @param string $attribute the attribute being validated
-	 *
-	 * @return void
-	 * @since  1.1.0
-	 */
-	protected function validateAttribute($object, $attribute) {
-		if($this->maxFiles > 1) {
-			$files=$object->$attribute;
-			if(!is_array($files) || !isset($files[0]) || !$files[0] instanceof UploadedFile)
-				$files = UploadedFile::getInstances($object, $attribute);
-			if(array()===$files)
-				return $this->emptyAttribute($object, $attribute);
-			if(count($files) > $this->maxFiles) {
-				$message=$this->tooMany!==null?$this->tooMany : \Yii::t('yii', '{attribute} cannot accept more than {limit} files.');
-				$this->addError($object, $attribute, $message, array('{attribute}'=>$attribute, '{limit}'=>$this->maxFiles));
-			}
-			else
-				foreach($files as $file)
-					$this->validateFile($object, $attribute, $file);
-		} else {
-			$file = $object->$attribute;
-			if(!$file instanceof UploadedFile) {
-				$file = UploadedFile::getInstance($object, $attribute);
-				if(null===$file)
-					return $this->emptyAttribute($object, $attribute);
-			}
-			$this->validateFile($object, $attribute, $file);
-		}
-	}
+class File extends \CFileValidator
+{
+    /**
+     * Set the attribute and then validates using {@link validateFile}.
+     * If there is any error, the error message is added to the object.
+     *
+     * @param CModel $object the object being validated
+     * @param string $attribute the attribute being validated
+     *
+     * @return void
+     * @since  1.1.0
+     */
+    protected function validateAttribute($object, $attribute)
+    {
+        if ($this->maxFiles > 1) {
+            $files = $object->$attribute;
+            if (!is_array($files) || !isset($files[0]) || !$files[0] instanceof UploadedFile) {
+                $files = UploadedFile::getInstances($object, $attribute);
+            }
+            if (array() === $files) {
+                return $this->emptyAttribute($object, $attribute);
+            }
+            if (count($files) > $this->maxFiles) {
+                $message = $this->tooMany !== null ? $this->tooMany : \Yii::t('yii',
+                    '{attribute} cannot accept more than {limit} files.');
+                $this->addError($object, $attribute, $message,
+                    array('{attribute}' => $attribute, '{limit}' => $this->maxFiles));
+            } else {
+                foreach ($files as $file) {
+                    $this->validateFile($object, $attribute, $file);
+                }
+            }
+        } else {
+            $file = $object->$attribute;
+            if (!$file instanceof UploadedFile) {
+                $file = UploadedFile::getInstance($object, $attribute);
+                if (null === $file) {
+                    return $this->emptyAttribute($object, $attribute);
+                }
+            }
+            $this->validateFile($object, $attribute, $file);
+        }
+    }
 
-	/**
-	 * Internally validates a file object.
-	 *
-	 * @param CModel        $object    the object being validated
-	 * @param string        $attribute the attribute being validated
-	 * @param CUploadedFile $file      uploaded file passed to check against a set of rules
-	 *
-	 * @return void
-	 * @since  1.1.0
-	 */
-	protected function validateFile($object, $attribute, $file) {
-		if(null===$file)
-			return $this->emptyAttribute($object, $attribute);
-		else if($this->maxSize!==null && $file->getSize()>$this->maxSize) {
-			$message=$this->tooLarge!==null?$this->tooLarge : \Yii::t('yii','The file "{file}" is too large. Its size cannot exceed {limit} bytes.');
-			$this->addError($object,$attribute,$message,array('{file}'=>$file->getName(), '{limit}'=>$this->getSizeLimit()));
-		}
+    /**
+     * Internally validates a file object.
+     *
+     * @param CModel $object the object being validated
+     * @param string $attribute the attribute being validated
+     * @param CUploadedFile $file uploaded file passed to check against a set of rules
+     *
+     * @return void
+     * @since  1.1.0
+     */
+    protected function validateFile($object, $attribute, $file)
+    {
+        if (null === $file) {
+            return $this->emptyAttribute($object, $attribute);
+        } else {
+            if ($this->maxSize !== null && $file->getSize() > $this->maxSize) {
+                $message = $this->tooLarge !== null ? $this->tooLarge : \Yii::t('yii',
+                    'The file "{file}" is too large. Its size cannot exceed {limit} bytes.');
+                $this->addError($object, $attribute, $message,
+                    array('{file}' => $file->getName(), '{limit}' => $this->getSizeLimit()));
+            }
+        }
 
-		if($this->minSize!==null && $file->getSize()<$this->minSize) {
-			$message=$this->tooSmall!==null?$this->tooSmall : \Yii::t('yii','The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.');
-			$this->addError($object,$attribute,$message,array('{file}'=>$file->getName(), '{limit}'=>$this->minSize));
-		}
+        if ($this->minSize !== null && $file->getSize() < $this->minSize) {
+            $message = $this->tooSmall !== null ? $this->tooSmall : \Yii::t('yii',
+                'The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.');
+            $this->addError($object, $attribute, $message,
+                array('{file}' => $file->getName(), '{limit}' => $this->minSize));
+        }
 
-		if($this->types!==null) {
-			if(is_string($this->types))
-				$types=preg_split('/[\s,]+/',strtolower($this->types),-1,PREG_SPLIT_NO_EMPTY);
-			else
-				$types=$this->types;
-			if(!in_array(strtolower($file->getExtensionName()),$types)) {
-				$message=$this->wrongType!==null?$this->wrongType : \Yii::t('yii','The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.');
-				$this->addError($object,$attribute,$message,array('{file}'=>$file->getName(), '{extensions}'=>implode(', ',$types)));
-			}
-		}
-	}
+        if ($this->types !== null) {
+            if (is_string($this->types)) {
+                $types = preg_split('/[\s,]+/', strtolower($this->types), -1, PREG_SPLIT_NO_EMPTY);
+            } else {
+                $types = $this->types;
+            }
+            if (!in_array(strtolower($file->getExtensionName()), $types)) {
+                $message = $this->wrongType !== null ? $this->wrongType : \Yii::t('yii',
+                    'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.');
+                $this->addError($object, $attribute, $message,
+                    array('{file}' => $file->getName(), '{extensions}' => implode(', ', $types)));
+            }
+        }
+    }
 }
