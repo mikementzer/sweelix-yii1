@@ -1,6 +1,6 @@
 {
 	"name" : "sweelix/yii1",
-	"description" : "PHP 5.4+ Sweelix extensions for Yii",
+	"description" : "PHP 5.3+ Sweelix extensions for Yii",
 	"type" : "library",
 	"keywords" : [ "behaviors", "yii", "filters" ],
 	"license" : "BSD-3-Clause",
@@ -16,7 +16,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"sweelix\\yii1\\" : ""
+			"sweelix\\yii1\\" : "src"
 		}
 	}
 }
