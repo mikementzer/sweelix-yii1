@@ -2,12 +2,12 @@
 /**
  * m121021_122255_createParameters.php
  *
- * PHP version 5.4+
+ * PHP version 5.3+
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2014 Sweelix
+ * @copyright 2010-2015 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.1.0
+ * @version   3.2.0
  * @link      http://www.sweelix.net
  * @category  migrations
  * @package   sweelix.yii1.migrations
@@ -19,9 +19,9 @@ namespace sweelix\yii1\migrations;
  * This class create the Parameter table
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2014 Sweelix
+ * @copyright 2010-2015 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.1.0
+ * @version   3.2.0
  * @link      http://www.sweelix.net
  * @category  migrations
  * @package   sweelix.yii1.migrations
