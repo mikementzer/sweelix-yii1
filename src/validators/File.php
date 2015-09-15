@@ -71,6 +71,9 @@ class File extends CFileValidator
      */
     protected function validateAttribute($object, $attribute)
     {
+        if ($object instanceof \IBehavior) {
+            $object = $object->getOwner();
+        }
         if ($this->maxFiles > 1) {
             $files = $object->$attribute;
             if (!is_array($files) || !isset($files[0]) || !$files[0] instanceof UploadedFile) {
