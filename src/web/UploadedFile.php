@@ -139,33 +139,6 @@ class UploadedFile extends \CComponent
     public static function getInstances($model, $attribute)
     {
         $infos = array();
-        //For file in database, construct path alis and adding new index in infos
-        //TODO: Make good code for this part
-        if ($model->asa('elasticProperties') !== null) {
-            $attributeConfig = $model->asa('elasticProperties')->getTemplateConfig();
-            if (isset($attributeConfig[$attribute]['model']['targetPathAlias']) === true) {
-                $matches = [];
-                $replacement = [];
-                if (preg_match_all(
-                        '/{([^}]+)}/',
-                        $attributeConfig[$attribute]['model']['targetPathAlias'],
-                        $matches) > 0
-                ) {
-                    if (isset($matches[1]) === true) {
-                        foreach ($matches[1] as $attributeName) {
-                            if ($model->hasAttribute($attributeName) === true) {
-                                $replacement['{' . $attributeName . '}'] = $model->$attributeName;
-                            }
-                        }
-                        $infos['pathAlias'] = str_replace(
-                            array_keys($replacement),
-                            array_values($replacement),
-                            $attributeConfig[$attribute]['model']['targetPathAlias']
-                        );
-                    }
-                }
-            }
-        }
         $infos['original'] = $attribute;
         \CHtml::resolveNameID($model, $attribute, $infos);
         if (method_exists('\CHtml', 'modelName') === true) {
@@ -269,20 +242,16 @@ class UploadedFile extends \CComponent
      * Build correct path for current file
      *
      * @param string $targetFileUrl file url like : tmp://xxx or resource://xxx
-     * @param array  $infos         Info file
      * @param string $id id of current target file
      *
      * @return string
      * @since  2.0.0
      */
-    protected static function buildFilePath($targetFileUrl, $infos = null, $id = null)
+    protected static function buildFilePath($targetFileUrl, $id = null)
     {
         if (strncasecmp('tmp://', $targetFileUrl, 6) === 0) {
             $targetFileUrl = str_replace('tmp://',
                 static::getTargetPath() . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR, $targetFileUrl);
-        } elseif(isset($infos['pathAlias']) === true) {
-            //When target file is not tmp, get alias
-            $targetFileUrl = \Yii::getPathOfAlias($infos['pathAlias']).DIRECTORY_SEPARATOR.$targetFileUrl;
         } else {
             $targetFileUrl = false;
         }
@@ -309,7 +278,7 @@ class UploadedFile extends \CComponent
 
                     foreach ($value as $idx => $data) {
                         // $myFile = self::getTargetPath().DIRECTORY_SEPARATOR.$id.DIRECTORY_SEPARATOR.$data;
-                        $myFile = self::buildFilePath($data,$infos, $id);
+                        $myFile = self::buildFilePath($data, $id);
 
                         if (($myFile !== false) && (file_exists($myFile) === true) && (is_file($myFile) == true)) {
                             $fileInfo = pathinfo($myFile);
@@ -324,7 +293,7 @@ class UploadedFile extends \CComponent
                     $id = \CHtml::getIdByName($testName);
                     // single upload
                     // $myFile = self::getTargetPath().DIRECTORY_SEPARATOR.$id.DIRECTORY_SEPARATOR.$value;
-                    $myFile = self::buildFilePath($value, $infos, $id);
+                    $myFile = self::buildFilePath($value, $id);
                     if (($myFile !== false) && (file_exists($myFile) === true) && (is_file($myFile) == true)) {
                         $fileInfo = pathinfo($myFile);
                         self::$_files[$infos['class']][$infos['attribute']][$testName] = new static($value, $myFile,
