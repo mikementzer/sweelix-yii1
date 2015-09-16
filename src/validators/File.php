@@ -76,12 +76,15 @@ class File extends CFileValidator
         }
         if ($this->maxFiles > 1) {
             $files = $object->$attribute;
+            //Get uploaded files
             if (!is_array($files) || !isset($files[0]) || !$files[0] instanceof UploadedFile) {
-                $files = UploadedFile::getInstances($object, $attribute);
+                $filesUploaded = UploadedFile::getInstances($object, $attribute);
             }
-            if (array() === $files) {
+            //Check if uploaded files are empty and files are empty
+            if ((empty($filesUploaded) === true) && (empty($files) === true)) {
                 return $this->emptyAttribute($object, $attribute);
             }
+            //Check max files
             if (count($files) > $this->maxFiles) {
                 $message = $this->tooMany !== null ?
                     $this->tooMany :
@@ -91,19 +94,24 @@ class File extends CFileValidator
                     '{limit}' => $this->maxFiles
                 ));
             } else {
-                foreach ($files as $file) {
+                //Validate files uploaded
+                foreach ($filesUploaded as $file) {
                     $this->validateFile($object, $attribute, $file);
                 }
             }
         } else {
             $file = $object->$attribute;
+            //Get uploaded file
             if (!$file instanceof UploadedFile) {
-                $file = UploadedFile::getInstance($object, $attribute);
-                if (null === $file) {
+                $fileUpload = UploadedFile::getInstance($object, $attribute);
+                //Check if is uploaded file and $file is not null
+                if (($fileUpload === null) && ($file === null)) {
                     return $this->emptyAttribute($object, $attribute);
+                } elseif($fileUpload !== null) {
+                    //Validate uploaded file
+                    $this->validateFile($object, $attribute, $fileUpload);
                 }
             }
-            $this->validateFile($object, $attribute, $file);
         }
     }
 
