@@ -71,6 +71,7 @@ class File extends CFileValidator
      */
     protected function validateAttribute($object, $attribute)
     {
+        $filesUploaded = [];
         if ($object instanceof \IBehavior) {
             $object = $object->getOwner();
         }
