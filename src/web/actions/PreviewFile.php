@@ -125,7 +125,8 @@ class PreviewFile extends \CAction
                     $response['path'] = null;
                 } else {
                     $basePath = \Yii::getPathOfAlias('webroot');
-                    $relativeFile = ltrim(str_replace($basePath, '', $file), '/');
+                    $baseUrl = \Yii::app()->baseUrl;
+                    $relativeFile = $baseUrl.str_replace($basePath, '', $file);
                     $response['url'] = \CHtml::normalizeUrl(array(
                         $this->id,
                         'mode' => 'raw',
@@ -173,6 +174,8 @@ class PreviewFile extends \CAction
             } else {
                 $targetPath = \Yii::getPathOfAlias(\Yii::app()->getRequest()->getParam('targetPathAlias', 'webroot'));
                 $replacement = array();
+                $baseUrl = \Yii::app()->baseUrl;
+                $fileName = str_replace($baseUrl, '', $fileName);
                 if (preg_match_all('/{([^}]+)}/', \Yii::app()->getRequest()->getParam('targetPathAlias', 'webroot'),
                         $matches) > 0
                 ) {
