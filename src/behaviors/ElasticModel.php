@@ -227,9 +227,13 @@ class ElasticModel extends CModel implements IBehavior
         $prop = null;
         if (isset($this->elasticAttributes[$property]) === true) {
             if ($arrayCell !== null) {
-                $prop = (isset($this->elasticAttributes[$property][$arrayCell]) === true) ?
-                    $this->elasticAttributes[$property][$arrayCell] :
-                    null;
+                if (is_array($this->elasticAttributes[$property]) === true) {
+                    $prop = (isset($this->elasticAttributes[$property][$arrayCell]) === true) ?
+                        $this->elasticAttributes[$property][$arrayCell] :
+                        null;
+                } else {
+                    $prop = $this->elasticAttributes[$property];
+                }
             } else {
                 $prop = $this->elasticAttributes[$property];
                 $prop = preg_replace_callback('/<img([^>]+)>/', array($this, 'expandImages'), $prop);
