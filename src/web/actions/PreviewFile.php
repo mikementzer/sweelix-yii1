@@ -208,14 +208,15 @@ class PreviewFile extends \CAction
                     }
                 } else {
                     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    //TODO:handle default image
                     $imageName = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'icons' . DIRECTORY_SEPARATOR . $ext . '.png';
 
-                    if (file_exists($imageName)) {
-                        $image = Image::create($imageName)->resize($width, $height)->setFit($fit);
-                        $imageContentType = $image->getContentType();
-                        $imageData = file_get_contents($image->getUrl(true));
+                    if (file_exists($imageName) === false) {
+                        //Get icon default
+                        $imageName = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'icons' . DIRECTORY_SEPARATOR .'default.png';
                     }
+                    $image = Image::create($imageName)->resize($width, $height)->setFit($fit);
+                    $imageContentType = $image->getContentType();
+                    $imageData = file_get_contents($image->getUrl(true));
                 }
             }
             header('Content-type: ' . $imageContentType);
